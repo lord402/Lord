@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>KAL SCHOOL KI CHHUTTI HAI! 🔥 | +1,000,000 AURA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Bungee&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #090a10;
+      --card-bg: rgba(22, 25, 42, 0.75);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --neon-cyan: #00f2fe;
+      --neon-purple: #9d4edd;
+      --neon-gold: #ffb703;
+      --neon-red: #ff0055;
+      --neon-green: #00ff88;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(157, 78, 221, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(0, 242, 254, 0.2) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255, 183, 3, 0.1) 0%, transparent 50%);
+    }
+
+    /* Canvas background for particles */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 20px 16px 80px 16px;
+    }
+
+    /* Top Floating Audio Bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      background: rgba(15, 18, 30, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      padding: 10px 16px;
+      border-radius: 99px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 255, 136, 0.12);
+      color: var(--neon-green);
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 50px;
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--neon-green);
+      box-shadow: 0 0 10px var(--neon-green);
+      animation: pulse 1.5s infinite;
+    }
+
+    .music-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .music-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--neon-cyan);
+    }
+
+    .music-btn.active {
+      background: linear-gradient(135deg, #7928ca, #ff0080);
+      border-color: transparent;
+      box-shadow: 0 0 15px rgba(255, 0, 128, 0.5);
+    }
+
+    .eq-bar {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+
+    .eq-bar span {
+      width: 2.5px;
+      height: 4px;
+      background: #fff;
+      border-radius: 1px;
+    }
+
+    .music-btn.active .eq-bar span:nth-child(1) { animation: soundBar 0.6s infinite ease-in-out; }
+    .music-btn.active .eq-bar span:nth-child(2) { animation: soundBar 0.9s infinite ease-in-out 0.2s; }
+    .music-btn.active .eq-bar span:nth-child(3) { animation: soundBar 0.7s infinite ease-in-out 0.4s; }
+
+    @keyframes soundBar {
+      0%, 100% { height: 3px; }
+      50% { height: 12px; }
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 20px 10px 30px;
+    }
+
+    .headline-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .hero-pretitle {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--neon-gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      text-shadow: 0 0 12px rgba(255, 183, 3, 0.6);
+    }
+
+    .hero-title {
+      font-family: 'Bungee', cursive, sans-serif;
+      font-size: clamp(2rem, 8vw, 3.8rem);
+      line-height: 1.08;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #ffffff 0%, #00f2fe 45%, #9d4edd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 5px 25px rgba(0, 242, 254, 0.4));
+      margin-bottom: 14px;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 3.5vw, 1.25rem);
+      color: #cbd5e1;
+      font-weight: 600;
+      max-width: 580px;
+      margin: 0 auto 20px;
+      line-height: 1.5;
+    }
+
+    .hero-sub span.highlight {
+      color: var(--neon-cyan);
+      font-weight: 800;
+      background: rgba(0, 242, 254, 0.1);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px dashed rgba(0, 242, 254, 0.4);
+    }
+
+    /* Aura Main Display */
+    .aura-card {
+      background: linear-gradient(145deg, rgba(30, 34, 58, 0.8), rgba(15, 18, 32, 0.95));
+      border: 1px solid rgba(157, 78, 221, 0.4);
+      box-shadow: 0 20px 40px -10px rgba(157, 78, 221, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      border-radius: 28px;
+      padding: 28px 20px;
+      margin-bottom: 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(15px);
+    }
+
+    .aura-glow-effect {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(157, 78, 221, 0.35) 0%, transparent 70%);
+      pointer-events: none;
+      animation: floatAura 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatAura {
+      0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+      100% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+    }
+
+    .user-tag-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 15px;
+      font-size: 0.85rem;
+    }
+
+    .user-tag-row input {
+      background: transparent;
+      border: none;
+      color: #ffb703;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.9rem;
+      outline: none;
+      text-align: center;
+      width: 140px;
+      border-bottom: 1px dashed rgba(255, 183, 3, 0.5);
+    }
+
+    .user-tag-row input::placeholder {
+      color: rgba(255, 183, 3, 0.5);
+    }
+
+    .aura-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.8rem, 10vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(0, 242, 254, 0.8), 0 0 40px rgba(157, 78, 221, 0.6);
+      margin: 10px 0 8px;
+      letter-spacing: -1px;
+    }
+
+    .aura-level-badge {
+      display: inline-block;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      background: linear-gradient(90deg, #ff007f, #7928ca);
+      box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
+      margin-bottom: 20px;
+    }
+
+    /* Aura Farming Tap Button */
+    .tap-farm-btn {
+      position: relative;
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      border: none;
+      color: #050a1a;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 900;
+      padding: 18px 36px;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 242, 254, 0.5), 0 0 0 4px rgba(0, 242, 254, 0.2);
+      transition: all 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      outline: none;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .tap-farm-btn:active {
+      transform: scale(0.94);
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.7);
+    }
+
+    .tap-hint {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* Floating Popups for Aura click */
+    .floating-points {
+      position: absolute;
+      pointer-events: none;
+      font-family: 'Bungee', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: var(--neon-gold);
+      text-shadow: 0 0 10px rgba(255, 183, 3, 0.8);
+      animation: floatUpFade 1s forwards ease-out;
+      z-index: 100;
+    }
+
+    @keyframes floatUpFade {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(0.8) rotate(-5deg);
+      }
+      50% {
+        transform: translate(-50%, -40px) scale(1.2) rotate(5deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -80px) scale(1.4) rotate(0deg);
+      }
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin: 35px 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+    }
+
+    .section-title .icon-pill {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--card-border);
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 1.2rem;
+    }
+
+    /* Alarm Destroyer Box */
+    .alarm-box {
+      background: linear-gradient(135deg, rgba(255, 0, 85, 0.12), rgba(20, 15, 30, 0.8));
+      border: 1px solid rgba(255, 0, 85, 0.35);
+      border-radius: 24px;
+      padding: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+
+    .alarm-clock-display {
+      font-family: 'Bungee', cursive;
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
+      color: var(--neon-red);
+      letter-spacing: 3px;
+      text-shadow: 0 0 20px rgba(255, 0, 85, 0.7);
+      margin: 10px 0;
+      transition: all 0.3s ease;
+    }
+
+    .alarm-clock-display.smashed {
+      text-decoration: line-through;
+      color: #64748b;
+      text-shadow: none;
+      filter: blur(1px);
+      transform: scale(0.95);
+    }
+
+    .alarm-destroy-btn {
+      background: linear-gradient(135deg, #ff0055, #d90429);
+      border: none;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 14px 28px;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 0, 85, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .alarm-destroy-btn:active {
+      transform: scale(0.95);
+    }
+
+    .alarm-destroyed-banner {
+      display: none;
+      background: rgba(0, 255, 136, 0.15);
+      border: 1px solid var(--neon-green);
+      color: var(--neon-green);
+      font-weight: 800;
+      padding: 12px 18px;
+      border-radius: 14px;
+      margin-top: 15px;
+      animation: popIn 0.4s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Comparison Grid */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: 650px) {
+      .compare-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .compare-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 22px;
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .compare-card.bad {
+      border-color: rgba(239, 68, 68, 0.3);
+      background: linear-gradient(180deg, rgba(239, 68, 68, 0.08) 0%, rgba(20, 20, 30, 0.8) 100%);
+    }
+
+    .compare-card.chad {
+      border-color: rgba(0, 255, 136, 0.35);
+      background: linear-gradient(180deg, rgba(0, 255, 136, 0.09) 0%, rgba(20, 20, 30, 0.8) 100%);
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+    }
+
+    .card-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .compare-card.bad .card-badge {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+
+    .compare-card.chad .card-badge {
+      background: rgba(0, 255, 136, 0.2);
+      color: var(--neon-green);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .timeline {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
+    .timeline-time {
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      white-space: nowrap;
+    }
+
+    .timeline-text {
+      color: #cbd5e1;
+    }
+
+    .card-aura-loss {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #ef4444;
+      text-align: right;
+    }
+
+    .card-aura-gain {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--neon-green);
+      text-align: right;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    }
+
+    /* Savage Dialogue Grid */
+    .dialogue-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: 600px) {
+      .dialogue-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .dialogue-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 18px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .dialogue-card:hover {
+      border-color: var(--neon-purple);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(157, 78, 221, 0.25);
+    }
+
+    .dialogue-card:active {
+      transform: scale(0.97);
+    }
+
+    .dialogue-quote {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+
+    .dialogue-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--neon-gold);
+      font-weight: 700;
+    }
+
+    .play-sound-chip {
+      background: rgba(255, 183, 3, 0.15);
+      border: 1px solid rgba(255, 183, 3, 0.3);
+      padding: 3px 8px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* WhatsApp Group Flex Sharer */
+    .share-box {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.15), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      border-radius: 24px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .share-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .share-desc {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 18px;
+    }
+
+    .flex-selector {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+      scrollbar-width: none;
+    }
+
+    .flex-selector::-webkit-scrollbar {
+      display: none;
+    }
+
+    .flex-tab {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: #cbd5e1;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .flex-tab.active {
+      background: #25d366;
+      color: #042410;
+      border-color: #25d366;
+      font-weight: 800;
+    }
+
+    .message-preview {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: left;
+      font-family: monospace;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      margin-bottom: 16px;
+      user-select: text;
+    }
+
+    .action-btn-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .share-wa-btn {
+      background: #25d366;
+      color: #032d13;
+      border: none;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 13px 24px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+      transition: all 0.2s;
+    }
+
+    .share-wa-btn:active {
+      transform: scale(0.96);
+    }
+
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 13px 20px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #10b981;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      z-index: 999;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    footer p {
+      margin-bottom: 6px;
+    }
+
+    /* Screen Shake animation */
+    .shake {
+      animation: shake 0.35s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-2px, 0, 0); }
+      20%, 80% { transform: translate3d(4px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+      40%, 60% { transform: translate3d(6px, 0, 0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Canvas for Particles -->
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="container">
+    
+    <!-- Top Bar with Live Badge & Music Toggle -->
+    <div class="top-bar">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Notice: Kal Chhutti Hai! 🎉
+      </div>
+      <button class="music-btn" id="musicToggle" title="Play/Stop Sigma Phonk Beat">
+        <span class="eq-bar"><span></span><span></span><span></span></span>
+        <span id="musicBtnText">Sigma BGM 🔊</span>
+      </button>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-pretitle">⚡ BREAKING SCHOOL UPDATE ⚡</div>
+      <div class="headline-wrap">
+        <h1 class="hero-title">KAL SCHOOL BAND HAI! 🗿🔥</h1>
+      </div>
+      <p class="hero-sub">
+        Subah 6:00 baje uthne walo ko <span class="highlight">2 minute ka maun</span>. Copy-kitab cold storage me daal do!
+      </p>
+    </header>
+
+    <!-- Aura Farming Interactive Hub -->
+    <div class="aura-card" id="auraCard">
+      <div class="aura-glow-effect"></div>
+      
+      <div class="user-tag-row">
+        <span>👑 Sigma Name:</span>
+        <input type="text" id="usernameInput" value="Backbench Legend" maxlength="20" title="Click to change your name">
+      </div>
+
+      <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+        TOTAL FARMED AURA POINTS
+      </div>
+
+      <div class="aura-number" id="auraCount">+100,000</div>
+
+      <div class="aura-level-badge" id="auraRank">
+        🏆 RANK: SIGMA LAST-BENCHER
+      </div>
+
+      <br>
+
+      <button class="tap-farm-btn" id="farmBtn">
+        <span>⚡ TAP TO FARM AURA</span>
+        <span style="font-size: 1.4rem;">🗿</span>
+      </button>
+      <div class="tap-hint">Tap rapidly to multiply aura and flex on 1st-benchers!</div>
+    </div>
+
+    <!-- Alarm Destroyer Ritual -->
+    <div class="alarm-box" id="alarmBox">
+      <div style="font-size: 0.85rem; font-weight: 800; color: var(--neon-red); text-transform: uppercase; letter-spacing: 1.5px;">
+        🚨 KAL SUBAH KA ALARM DESTROYER
+      </div>
+      <div class="alarm-clock-display" id="alarmDisplay">06:00 AM ⏰</div>
+      <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 16px;">
+        Ek click me alarm ko permanently khatam karo aur chain ki neend lo!
+      </p>
+      <button class="alarm-destroy-btn" id="destroyAlarmBtn">
+        <span>💥 SMASH & DELETE ALARM</span>
+      </button>
+      <div class="alarm-destroyed-banner" id="destroyedBanner">
+        ✅ ALARM SHATTERED TO PIECES! 12:00 PM SE PEHLE NO UTHTA! (+50,000 AURA)
+      </div>
+    </div>
+
+    <!-- Normal School Day vs Kal Ka Day Comparison -->
+    <div class="section-title">
+      <span class="icon-pill">⚖️</span>
+      <span>Normal Day vs Kal Ka Chhutti Routine</span>
+    </div>
+
+    <div class="compare-grid">
+      <!-- Normal Day Card -->
+      <div class="compare-card bad">
+        <span class="card-badge">NPC Routine (Normal Day) 😭</span>
+        <h3 class="card-title">School Ka Torture</h3>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="timeline-time">06:00 AM</span>
+            <span class="timeline-text">Mummy ki daant + Alarm ki chikh</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">07:45 AM</span>
+            <span class="timeline-text">Dhoop me prayer assembly torture</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">10:30 AM</span>
+            <span class="timeline-text">Maths teacher: "Where is your homework?"</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">01:30 PM</span>
+            <span class="timeline-text">Tiffin me firse teende/lauki</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">09:00 PM</span>
+            <span class="timeline-text">"Kal subah jaldi uthna hai so jao" depression</span>
+          </li>
+        </ul>
+        <div class="card-aura-loss">-99,999 AURA 📉</div>
+      </div>
+
+      <!-- Kal Ka Day Card -->
+      <div class="compare-card chad">
+        <span class="card-badge">Sigma Gigachad Day (Kal) 🗿</span>
+        <h3 class="card-title">Kal Ka Royal Sukoon</h3>
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="timeline-time">11:30 AM</span>
+            <span class="timeline-text">Sukoon se aankh khulegi, zero alarm tension</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">12:30 PM</span>
+            <span class="timeline-text">Bed pe Maggi + YouTube/Insta Reels feast</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">03:00 PM</span>
+            <span class="timeline-text">Squad ke saath Gaming session (BGMI/FreeFire/PC)</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">07:00 PM</span>
+            <span class="timeline-text">School group me homework poochne walo ko seen pe chhodna</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-time">03:00 AM</span>
+            <span class="timeline-text">Late night movies binge, full chill</span>
+          </li>
+        </ul>
+        <div class="card-aura-gain">+999,999,999 AURA 📈</div>
+      </div>
+    </div>
+
+    <!-- Savage Dialogues / Soundboard -->
+    <div class="section-title">
+      <span class="icon-pill">💬</span>
+      <span>Top Tier School Banter (Click To Play SFX)</span>
+    </div>
+
+    <div class="dialogue-grid">
+      <div class="dialogue-card" onclick="playQuoteSfx(0)">
+        <p class="dialogue-quote">"Sir bol rahe the kal extra class lenge... Nature ne bola chal nikal! Chhutti confirmed!" 😂</p>
+        <div class="dialogue-footer">
+          <span>Rule #1: Nature Favors Chhutti</span>
+          <span class="play-sound-chip">🔊 Vine Boom</span>
+        </div>
+      </div>
+
+      <div class="dialogue-card" onclick="playQuoteSfx(1)">
+        <p class="dialogue-quote">"Subah 6 baje ka alarm off karne ka sukoon duniya ke kisi spa me nahi milta!" 💤</p>
+        <div class="dialogue-footer">
+          <span>Sukoon Tier: 1000%</span>
+          <span class="play-sound-chip">🔊 Bass Drop</span>
+        </div>
+      </div>
+
+      <div class="dialogue-card" onclick="playQuoteSfx(2)">
+        <p class="dialogue-quote">"Kal jo subah 9 baje se pehle uthega, uska seedha 50,000 Aura points deduct hoga!" 📉</p>
+        <div class="dialogue-footer">
+          <span>Law of Backbenchers</span>
+          <span class="play-sound-chip">🔊 Danger Siren</span>
+        </div>
+      </div>
+
+      <div class="dialogue-card" onclick="playQuoteSfx(3)">
+        <p class="dialogue-quote">"Pehli bench wale homework dhund rahe hain, hum yahan matches aur gaming squad set kar rahe hain!" 🎮</p>
+        <div class="dialogue-footer">
+          <span>Chad Mindset Only</span>
+          <span class="play-sound-chip">🔊 Level Up</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- School Group WhatsApp Flex Sharer -->
+    <div class="share-box">
+      <div class="share-title">📲 School Group Me Bhejo Aur Aura Flex Karo</div>
+      <p class="share-desc">Neeche se best dialogue choose karo aur sidhe WhatsApp group me share karo:</p>
+
+      <div class="flex-selector">
+        <button class="flex-tab active" onclick="selectTemplate(0)">🔥 The Official Sigma Notice</button>
+        <button class="flex-tab" onclick="selectTemplate(1)">🗿 Backbencher Announcement</button>
+        <button class="flex-tab" onclick="selectTemplate(2)">⚰️ Homework RIP Card</button>
+      </div>
+
+      <div class="message-preview" id="previewText"></div>
+
+      <div class="action-btn-row">
+        <button class="share-wa-btn" id="waShareBtn">
+          <span>📲 Send to WhatsApp Group</span>
+        </button>
+        <button class="copy-btn" id="copyMsgBtn">
+          <span>📋 Copy Message</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>Banaaya gaya hai supreme backbenchers ke dwara 🗿✨</p>
+      <p style="font-size: 0.75rem; color: #64748b;">Enjoy the holiday! Bag ko ek kone me phenk do!</p>
+    </footer>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">Copied to clipboard! 🚀</div>
+
+  <script>
+    /* --- State & Audio Synth System --- */
+    let auraPoints = 100000;
+    let combo = 0;
+    let lastClickTime = 0;
+    let isAlarmDestroyed = false;
+    let audioCtx = null;
+    let isPlayingBgm = false;
+    let bgmInterval = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    /* Sound Synthesizers via Web Audio (Guaranteed to work without external files) */
+    function playTone(freq, type = 'sine', duration = 0.2, gainVal = 0.15) {
+      initAudio();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    // Epic Vine Boom Synthesizer
+    function playVineBoom() {
+      initAudio();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(110, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.5);
+        gain.gain.setValueAtTime(0.8, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.75);
+
+        // Add some noise punch
+        const bufferSize = audioCtx.sampleRate * 0.15;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        const noiseGain = audioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+        noiseGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+        noise.connect(noiseGain);
+        noiseGain.connect(audioCtx.destination);
+        noise.start();
+      } catch(e) {}
+    }
+
+    // Level up sound
+    function playLevelUp() {
+      initAudio();
+      const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99];
+      notes.forEach((freq, idx) => {
+        setTimeout(() => {
+          playTone(freq, 'sine', 0.18, 0.2);
+        }, idx * 60);
+      });
+    }
+
+    // Alarm Shatter Sound
+    function playShatterSound() {
+      initAudio();
+      try {
+        // High buzzer cut off abruptly
+        playTone(800, 'sawtooth', 0.1, 0.3);
+        setTimeout(() => {
+          playVineBoom();
+        }, 120);
+      } catch(e) {}
+    }
+
+    // Phonk synth loop generator for BGM
+    function startPhonkLoop() {
+      if (isPlayingBgm) return;
+      initAudio();
+      isPlayingBgm = true;
+      document.getElementById('musicToggle').classList.add('active');
+      document.getElementById('musicBtnText').textContent = "Phonk Playing 🔥";
+
+      let beat = 0;
+      const bpm = 135;
+      const stepTime = (60 / bpm) / 2 * 1000; // 8th notes
+
+      const bassNotes = [55, 55, 65.4, 55, 49, 49, 58.27, 49]; // A1, C2, B1, D2 vibe
+      const cowbellNotes = [587.33, 0, 783.99, 587.33, 0, 880, 783.99, 659.25];
+
+      bgmInterval = setInterval(() => {
+        if (!isPlayingBgm) return;
+        const step = beat % 8;
+
+        // 808 Kick / Sub-bass
+        if (step === 0 || step === 3 || step === 4 || step === 6) {
+          playTone(bassNotes[step], 'triangle', 0.28, 0.4);
+        }
+
+        // Cowbell riff
+        if (cowbellNotes[step] > 0) {
+          playTone(cowbellNotes[step], 'square', 0.1, 0.08);
+        }
+
+        // Snare / Hat
+        if (step === 2 || step === 6) {
+          playTone(220, 'sawtooth', 0.06, 0.12);
+        }
+
+        beat++;
+      }, stepTime);
+    }
+
+    function stopPhonkLoop() {
+      isPlayingBgm = false;
+      if (bgmInterval) clearInterval(bgmInterval);
+      document.getElementById('musicToggle').classList.remove('active');
+      document.getElementById('musicBtnText').textContent = "Sigma BGM 🔊";
+    }
+
+    document.getElementById('musicToggle').addEventListener('click', () => {
+      if (isPlayingBgm) {
+        stopPhonkLoop();
+      } else {
+        startPhonkLoop();
+      }
+    });
+
+    /* --- Aura Farming Clicker Logic --- */
+    const auraCountEl = document.getElementById('auraCount');
+    const auraRankEl = document.getElementById('auraRank');
+    const farmBtn = document.getElementById('farmBtn');
+    const auraCard = document.getElementById('auraCard');
+
+    function updateAuraRank() {
+      if (auraPoints < 250000) {
+        auraRankEl.textContent = "🏆 RANK: CASUAL BENCHER (+10K)";
+        auraRankEl.style.background = "linear-gradient(90deg, #3b82f6, #06b6d4)";
+      } else if (auraPoints < 750000) {
+        auraRankEl.textContent = "🏆 RANK: SUPREME LAST BENCHER ⚡";
+        auraRankEl.style.background = "linear-gradient(90deg, #8b5cf6, #ec4899)";
+      } else if (auraPoints < 2000000) {
+        auraRankEl.textContent = "🔥 RANK: GIGACHAD ATTENDANCE RUINER 🗿";
+        auraRankEl.style.background = "linear-gradient(90deg, #f59e0b, #ef4444)";
+      } else {
+        auraRankEl.textContent = "👑 RANK: IMMORTAL HOLIDAY GOD (+∞ AURA)";
+        auraRankEl.style.background = "linear-gradient(90deg, #ffd700, #ff007f)";
+      }
+    }
+
+    function createFloatingText(x, y, text) {
+      const el = document.createElement('div');
+      el.className = 'floating-points';
+      el.textContent = text;
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      document.body.appendChild(el);
+
+      setTimeout(() => {
+        el.remove();
+      }, 1000);
+    }
+
+    farmBtn.addEventListener('click', (e) => {
+      initAudio();
+      const now = Date.now();
+      if (now - lastClickTime < 400) {
+        combo++;
+      } else {
+        combo = 1;
+      }
+      lastClickTime = now;
+
+      const increment = 15000 * Math.min(combo, 5);
+      auraPoints += increment;
+      auraCountEl.textContent = `+${auraPoints.toLocaleString()}`;
+
+      // Trigger button pop & sound
+      playTone(300 + (combo * 50), 'sine', 0.15, 0.2);
+      
+      if (combo >= 4 && combo % 4 === 0) {
+        playVineBoom();
+        triggerConfetti(e.clientX, e.clientY, 25);
+      }
+
+      // Floating text
+      const rect = farmBtn.getBoundingClientRect();
+      const posX = e.clientX || (rect.left + rect.width / 2);
+      const posY = e.clientY || (rect.top + 10);
+      createFloatingText(posX, posY, `+${increment.toLocaleString()} AURA! ⚡`);
+
+      updateAuraRank();
+
+      // Screen shake on high combo
+      if (combo >= 3) {
+        auraCard.classList.remove('shake');
+        void auraCard.offsetWidth; // re-flow
+        auraCard.classList.add('shake');
+      }
+
+      // Haptic feedback for mobile devices
+      if (navigator.vibrate) {
+        navigator.vibrate(30);
+      }
+    });
+
+    /* --- Alarm Destroyer Feature --- */
+    const destroyAlarmBtn = document.getElementById('destroyAlarmBtn');
+    const alarmDisplay = document.getElementById('alarmDisplay');
+    const destroyedBanner = document.getElementById('destroyedBanner');
+    const alarmBox = document.getElementById('alarmBox');
+
+    destroyAlarmBtn.addEventListener('click', (e) => {
+      if (isAlarmDestroyed) return;
+      isAlarmDestroyed = true;
+      initAudio();
+      playShatterSound();
+
+      alarmDisplay.classList.add('smashed');
+      alarmDisplay.textContent = "💥 DESTROYED! 🗑️";
+      destroyAlarmBtn.style.display = 'none';
+      destroyedBanner.style.display = 'block';
+
+      alarmBox.classList.add('shake');
+      triggerConfetti(window.innerWidth / 2, window.innerHeight / 2, 70);
+
+      auraPoints += 50000;
+      auraCountEl.textContent = `+${auraPoints.toLocaleString()}`;
+      updateAuraRank();
+
+      showToast("ALARM DELETED! Kal 12 PM tak uthna mana hai! 💤");
+
+      if (navigator.vibrate) {
+        navigator.vibrate([80, 50, 150]);
+      }
+    });
+
+    /* --- Dialogue Quotes Sound Effects --- */
+    function playQuoteSfx(index) {
+      initAudio();
+      if (index === 0) {
+        playVineBoom();
+      } else if (index === 1) {
+        playTone(80, 'sawtooth', 0.6, 0.3);
+      } else if (index === 2) {
+        playTone(700, 'sawtooth', 0.2, 0.2);
+        setTimeout(() => playTone(500, 'sawtooth', 0.3, 0.2), 150);
+      } else if (index === 3) {
+        playLevelUp();
+      }
+      showToast("Aura Sound Played! 🗿🔥");
+    }
+
+    /* --- Templates & WhatsApp Sharer --- */
+    const templates = [
+      `🚨 *OFFICIAL NOTICE: KAL SCHOOL KI CHHUTTI HAI!* 🚨\n\nSubah 6:00 baje uthne walo ke liye 2 minute ka maun! 🤫\n\n📌 *Kal Ka Rules:* \n1. Alarm permanently off rakhein ⏰❌\n2. Bag aur homework ko kal dekhna bhi paap hai 📚⛔\n3. Uthna strictly 11:30 AM ke baad allowed hai 😴\n\n👉 *My Aura:* +999,999,999 Points! 🗿\n_Bolo chhutti mata ki jai!_ 🎉`,
+
+      `🗿 *ATTENTION CLASSMATES:* \n\nKal jo bhi subah subah group me "Aaj class hai kya?" poochega, uska seedha *-100,000 AURA* cut ho jayega! 📉\n\nNature ne holiday de di hai, ab bas game on karo aur sukoon se so jao! 🎮💤\n\nStay Sigma, Happy Holiday! 👑`,
+
+      `🕊️ *RIP SCHOOL HOMEWORK* 🕊️\n\n(Died a peaceful death because Kal School Band Hai!)\n\n"Sir kal homework check karenge?"\nHum: *Sir kal hum sapne me bhi school nahi aane wale!* 😂🔥\n\n+1,000,000 Aura Farmed! Kal milenge seedha lunch time pe! 🍜✨`
+    ];
+
+    let currentTemplateIdx = 0;
+    const previewEl = document.getElementById('previewText');
+
+    function selectTemplate(idx) {
+      currentTemplateIdx = idx;
+      document.querySelectorAll('.flex-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === idx);
+      });
+      renderTemplate();
+    }
+
+    function renderTemplate() {
+      const username = document.getElementById('usernameInput').value || "Backbench Legend";
+      let text = templates[currentTemplateIdx];
+      text = text.replace("My Aura", `${username}'s Aura`);
+      previewEl.textContent = text;
+    }
+
+    document.getElementById('usernameInput').addEventListener('input', renderTemplate);
+    renderTemplate();
+
+    document.getElementById('waShareBtn').addEventListener('click', () => {
+      const text = encodeURIComponent(previewEl.textContent);
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    });
+
+    document.getElementById('copyMsgBtn').addEventListener('click', () => {
+      navigator.clipboard.writeText(previewEl.textContent).then(() => {
+        showToast("Message Copied! Ab school group me paste kar do! 📲");
+      });
+    });
+
+    /* --- Toast Notification Utility --- */
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    /* --- Canvas Background Particles --- */
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let confetti = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Floating school & aura emojis/particles
+    const symbols = ['💤', '🔥', '✨', '🗿', '⭐', '⚡'];
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height + 20;
+        this.size = Math.random() * 16 + 10;
+        this.speedY = Math.random() * 1.5 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 1;
+        this.char = symbols[Math.floor(Math.random() * symbols.length)];
+        this.opacity = Math.random() * 0.4 + 0.15;
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        if (this.y < -30) this.reset();
+      }
+      draw() {
+        ctx.font = `${this.size}px sans-serif`;
+        ctx.globalAlpha = this.opacity;
+        ctx.fillText(this.char, this.x, this.y);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    for (let i = 0; i < 24; i++) {
+      const p = new Particle();
+      p.y = Math.random() * canvas.height;
+      particles.push(p);
+    }
+
+    // Confetti System
+    class Confetto {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 8 + 5;
+        this.color = ['#ff0055', '#00f2fe', '#ffd700', '#00ff88', '#9d4edd'][Math.floor(Math.random() * 5)];
+        this.speedX = (Math.random() - 0.5) * 12;
+        this.speedY = Math.random() * -12 - 4;
+        this.gravity = 0.35;
+        this.rotation = Math.random() * 360;
+        this.rotSpeed = (Math.random() - 0.5) * 10;
+        this.opacity = 1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.speedY += this.gravity;
+        this.rotation += this.rotSpeed;
+        this.opacity -= 0.015;
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = Math.max(0, this.opacity);
+        ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size * 0.6);
+        ctx.restore();
+      }
+    }
+
+    function triggerConfetti(originX, originY, count = 30) {
+      for (let i = 0; i < count; i++) {
+        confetti.push(new Confetto(originX, originY));
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Render background floating particles
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      // Render confetti bursts
+      for (let i = confetti.length - 1; i >= 0; i--) {
+        confetti[i].update();
+        confetti[i].draw();
+        if (confetti[i].opacity <= 0) {
+          confetti.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Initial Celebration Burst on Page Load
+    setTimeout(() => {
+      triggerConfetti(window.innerWidth / 2, window.innerHeight / 3, 50);
+    }, 500);
+  </script>
+</body>
+</html>
